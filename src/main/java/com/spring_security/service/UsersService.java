@@ -60,7 +60,6 @@ public class UsersService {
 	        	        roles.add(role);
 	        	    }
 	        	});
-
 	        }
 		 user.setRoles(roles);
 		repo.save(user);
@@ -73,7 +72,7 @@ public class UsersService {
 		if(authentication.isAuthenticated()){
 			UserPrincipal user=(UserPrincipal) authentication.getPrincipal();
 			List<String> roles=user.getAuthorities().stream().map(role->role.getAuthority()).collect(Collectors.toList());
-			token=jwtService.generateToken(request.getUsername(),roles);
+			token=jwtService.generateToken(request.getUsername());
 			UserInfoResponse response=new UserInfoResponse(token,user.getUsername(),roles);
 			return ResponseEntity.ok(response);
 		}

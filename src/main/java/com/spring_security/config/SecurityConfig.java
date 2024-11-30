@@ -26,7 +26,7 @@ import com.spring_security.models.AppRole;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+//@EnableMethodSecurity
 public class SecurityConfig {
 	
 	@Autowired
@@ -40,8 +40,8 @@ public class SecurityConfig {
 		return http
 				.csrf(customizer->customizer.disable())
 				.authorizeHttpRequests(request->request
-//						.requestMatchers("/api/admin/**").hasAnyRole("ADMIN","USER")
-//						.requestMatchers("/api/user/**").hasRole("USER")
+						.requestMatchers("/api/admin/**").hasAuthority("ADMIN")
+						.requestMatchers("/api/user/**").hasAnyAuthority("USER","ADMIN")
 						.anyRequest()
 						.permitAll())
 //				.formLogin(Customizer.withDefaults())
